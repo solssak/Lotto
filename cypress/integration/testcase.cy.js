@@ -20,17 +20,15 @@ describe("Lotto app", () => {
     const emptyValue = "";
 
     cy.on("window:alert", alertStub);
-    cy.get(".money")
-      .type(`${emptyValue}{enter}`)
-      .then(() => {
-        expect(alertStub).to.be.calledWith("1000원 이상의 값을 입력해주세요.");
-      });
+    cy.get(".money").type(`${emptyValue}{enter}`)
+    .then(() => {
+      expect(alertStub).to.be.calledWith("1000원 이상의 값을 입력해주세요.");
   });
-  // it("엔터 키 입력 시 1000원 단위가 아닌 경우 alert창을 띄운다", () => {});
-  // it("엔터 키 입력 시 1000원 단위가 아닌 경우 input값을 비운다", () => {});
-  // it("구입 금액은 1,000 단위 이상이여야한다.", () => {});
-  // it("구입 금액은 100,000 단위 이하여야한다.", () => {});
 });
+// it("엔터 키 입력 시 1000원 단위가 아닌 경우 alert창을 띄운다", () => {});
+// it("엔터 키 입력 시 1000원 단위가 아닌 경우 input값을 비운다", () => {});
+// it("구입 금액은 1,000 단위 이상이여야한다.", () => {});
+// it("구입 금액은 100,000 단위 이하여야한다.", () => {});
 
 // class => . id => #
 // 1번쨰 테코 "1000월을 넣었늗네 아예 아무것도 입력이 안됨" << 이유 알아보기
