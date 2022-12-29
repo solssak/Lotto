@@ -45,19 +45,24 @@ describe("Lotto app", () => {
   });
 
   it("엔터 키 입력 시 로또 구입 금액이 1000원 단위가 아닌 경우 input값을 비운다", () => {
-    // const newValue = "999";
-    // cy.get(".money").type(`${newValue}{enter}`).clear();
-
     cy.get(".money")
       .type("1100{enter")
       .then(() => {
         expect(cy.get(".money").should("have.value", ""));
       });
+
+    // cy.get(".money").type(`${newValue}{enter}`).clear();
+    // const newValue = "999";
   });
 
   it("엔터 키 입력 시 로또 UI의 <label>에 로또 구입 금액의 1000 단위 개수를 띄운다", () => {
     cy.get(".money").type(`10000{enter}`);
     cy.get(".label").should("have.text", "총 10개를 구매하셨습니다.");
+  });
+
+  it("로또 금액 입력 후 엔터 키 입력 시 번호보기 토글 상태를 초기화한다.", () => {
+    cy.get(".money").type("10000{enter}");
+    cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제");
   });
 
   // click event
@@ -66,18 +71,16 @@ describe("Lotto app", () => {
     cy.on("window:alert", alertStub);
 
     cy.get(".money").type("999");
-    cy.get(".button")
+    cy.get("#button")
       .click()
       .then(() => {
-        expect(stub.getCall(0)).to.be.calledWith(
-          '"구입 금액은 1000원 단위여야합니다."'
-        );
+        expect(stub).to.be.calledWith('"구입 금액은 1000원 단위여야합니다."');
       });
   });
 
   it("확인버튼 클릭 시 로또 구입 금액이 1000 단위가 아닌 경우 input값을 비운다.", () => {
     cy.get(".money").type("999");
-    cy.get(".button")
+    cy.get("#button")
       .click()
       .then(() => {
         expect(cy.get(".money").should("have.value", ""));
@@ -86,19 +89,19 @@ describe("Lotto app", () => {
 
   it("확인버튼 클릭 시 로또 UI의 <label>에 로또 구입 금액의 1000 단위 개수를 띄운다.", () => {
     cy.get(".money").type("2000");
-    cy.get(".button").click();
+    cy.get("#button").click();
     cy.get(".label").should("have.text", "총 2개를 구매하셨습니다.");
   });
 
   // it("로또 금액 입력 후 확인버튼 클릭 시 번호보기 토글 상태를 초기화한다.", () => {
   //   cy.get(".money").type(1000);
-  //   cy.get(".button").click();
-  //   cy.get("lotto-numbers-toggle-button").should("토글 상태 해제")
+  //   cy.get("#button").click();
+  //   cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제")
   // });
 });
 
-// - 엔터 키 입력 시 로또 UI의 <label>에 로또 구입 금액의 1000 단위 개수를 띄운다.
-// - 엔터 키 입력 시 로또 <span> UI의 당첨 번호 숫자 6개가 지정된다.
+// ----------------------------------------------------------------------------------------
+// - 엔터 키 입력 시 로또 <span> UI의 당첨 번호 숫자 6개가 지정되며 중복이 없다.
 // - 로또 금액 입력 후 엔터 키 입력 시 번호보기 토글 상태를 초기화한다.
 // - 로또 <span> UI의 당첨 번호가 띄워진 상태에서 로또 금액 입력 후 엔터 키 입력 시 번호보기 토글 상태를 초기화한다.
 
@@ -106,6 +109,7 @@ describe("Lotto app", () => {
 //     - 로또 <span> UI의 당첨 번호는 1부터 45 사이 값이다.
 //     - 로또 <span> UI의 당첨 번호는 티켓 별 중복 숫자가 없다.
 // - 로또 <span> UI의 당첨 번호가 띄워진 상태에서 로또 금액 입력 후 확인버튼 클릭 시 번호보기 토글 상태를 초기화한다.
+// ----------------------------------------------------------------------------------------
 
 // class => . id => #
 // 1번쨰 테코 "1000원을 넣었는데 아예 아무것도 입력이 안됨" << 이유 알아보기
