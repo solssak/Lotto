@@ -45,8 +45,19 @@ describe("Lotto app", () => {
   });
 
   it("엔터 키 입력 시 로또 구입 금액이 1000원 단위가 아닌 경우 input값을 비운다", () => {
-    const newValue = "999";
-    cy.get(".money").type(`${newValue}{enter}`).clear();
+    // const newValue = "999";
+    // cy.get(".money").type(`${newValue}{enter}`).clear();
+
+    cy.get(".money")
+      .type("1100{enter")
+      .then(() => {
+        expect(cy.get(".money").should("have.value", ""));
+      });
+  });
+
+  it("엔터 키 입력 시 로또 UI의 <label>에 로또 구입 금액의 1000 단위 개수를 띄운다", () => {
+    cy.get(".money").type(`10000{enter}`);
+    cy.get(".label").should("have.text", "총 10개를 구매하셨습니다.");
   });
 
   // click event
@@ -84,8 +95,6 @@ describe("Lotto app", () => {
   //   cy.get(".button").click();
   //   cy.get("lotto-numbers-toggle-button").should("토글 상태 해제")
   // });
-
-  it;
 });
 
 // - 엔터 키 입력 시 로또 UI의 <label>에 로또 구입 금액의 1000 단위 개수를 띄운다.
