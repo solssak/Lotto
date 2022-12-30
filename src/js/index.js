@@ -1,3 +1,4 @@
+// 유틸 함수
 const $ = (selector) => document.querySelector(selector);
 
 const $showResultButton = $(".open-result-modal-button");
