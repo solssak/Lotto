@@ -6,14 +6,14 @@ describe("Lotto app", () => {
   // key event
   it("input 창에 문자열 입력 시 값이 입력되지 않는다.", () => {
     const newString = "1000원";
-    cy.get(".money").type(`${newString}{enter}`);
-    cy.get(".money").should("have.text", "1000");
+    cy.get(".lotto-purchase-input").type(`${newString}{enter}`);
+    cy.get(".lotto-purchase-input").should("have.text", "1000");
   });
 
   it("input 창에 특수문자 입력 시 값이 입력되지 않는다.", () => {
     const newPercentSign = "1000%";
-    cy.get(".money").type(`${newPercentSign}{enter}`);
-    cy.get(".money").should("have.text", "1000");
+    cy.get(".lotto-purchase-input").type(`${newPercentSign}{enter}`);
+    cy.get(".lotto-purchase-input").should("have.text", "1000");
   });
 
   it("엔터 키 입력 시 input 값이 없는 경우 alert 경고를 띄운다", () => {
@@ -22,7 +22,7 @@ describe("Lotto app", () => {
 
     cy.on("window:alert", alertStub);
 
-    cy.get(".money")
+    cy.get(".lotto-purchase-input")
       .type(`${emptyValue}{enter}`)
       .then(() => {
         expect(alertStub).to.be.calledWith("1000원 이상의 값을 입력해주세요.");
@@ -35,7 +35,7 @@ describe("Lotto app", () => {
 
     cy.on("window:alert", alertStub);
 
-    cy.get(".money")
+    cy.get(".lotto-purchase-input")
       .type(`${newValue}{enter}`)
       .then(() => {
         expect(alertStub).to.be.calledWith(
@@ -45,23 +45,23 @@ describe("Lotto app", () => {
   });
 
   it("엔터 키 입력 시 로또 구입 금액이 1000원 단위가 아닌 경우 input값을 비운다", () => {
-    cy.get(".money")
+    cy.get(".lotto-purchase-input")
       .type("1100{enter")
       .then(() => {
-        expect(cy.get(".money").should("have.value", ""));
+        expect(cy.get(".lotto-purchase-input").should("have.value", ""));
       });
 
-    // cy.get(".money").type(`${newValue}{enter}`).clear();
+    // cy.get(".lotto-purchase-input").type(`${newValue}{enter}`).clear();
     // const newValue = "999";
   });
 
   it("엔터 키 입력 시 로또 UI의 <label>에 로또 구입 금액의 1000 단위 개수를 띄운다", () => {
-    cy.get(".money").type(`10000{enter}`);
+    cy.get(".lotto-purchase-input").type(`10000{enter}`);
     cy.get(".label").should("have.text", "총 10개를 구매하셨습니다.");
   });
 
   it("로또 금액 입력 후 엔터 키 입력 시 번호보기 토글 상태를 초기화한다.", () => {
-    cy.get(".money").type("10000{enter}");
+    cy.get(".lotto-purchase-input").type("10000{enter}");
     cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제");
   });
 
@@ -70,8 +70,8 @@ describe("Lotto app", () => {
     const alertStub = cy.stub();
     cy.on("window:alert", alertStub);
 
-    cy.get(".money").type("999");
-    cy.get("#button")
+    cy.get(".lotto-purchase-input").type("999");
+    cy.get(".lotto-purchase-btn")
       .click()
       .then(() => {
         expect(stub).to.be.calledWith('"구입 금액은 1000원 단위여야합니다."');
@@ -79,25 +79,25 @@ describe("Lotto app", () => {
   });
 
   it("확인버튼 클릭 시 로또 구입 금액이 1000 단위가 아닌 경우 input값을 비운다.", () => {
-    cy.get(".money").type("999");
-    cy.get("#button")
+    cy.get(".lotto-purchase-input").type("999");
+    cy.get(".lotto-purchase-btn")
       .click()
       .then(() => {
-        expect(cy.get(".money").should("have.value", ""));
+        expect(cy.get(".lotto-purchase-input").should("have.value", ""));
       });
   });
 
   it("확인버튼 클릭 시 로또 UI의 <label>에 로또 구입 금액의 1000 단위 개수를 띄운다.", () => {
-    cy.get(".money").type("2000");
-    cy.get("#button").click();
+    cy.get(".lotto-purchase-input").type("2000");
+    cy.get(".lotto-purchase-btn").click();
     cy.get(".label").should("have.text", "총 2개를 구매하셨습니다.");
   });
 
-  // it("로또 금액 입력 후 확인버튼 클릭 시 번호보기 토글 상태를 초기화한다.", () => {
-  //   cy.get(".money").type(1000);
-  //   cy.get("#button").click();
-  //   cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제")
-  // });
+  it("로또 금액 입력 후 확인버튼 클릭 시 번호보기 토글 상태를 초기화한다.", () => {
+    cy.get(".lotto-purchase-input").type(1000);
+    cy.get(".lotto-purchase-btn").click();
+    cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제");
+  });
 });
 
 // ----------------------------------------------------------------------------------------
