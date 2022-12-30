@@ -93,11 +93,11 @@ describe("Lotto app", () => {
     cy.get(".label").should("have.text", "총 2개를 구매하셨습니다.");
   });
 
-  // it("로또 금액 입력 후 확인버튼 클릭 시 번호보기 토글 상태를 초기화한다.", () => {
-  //   cy.get(".money").type(1000);
-  //   cy.get("#button").click();
-  //   cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제")
-  // });
+  it("로또 금액 입력 후 확인버튼 클릭 시 번호보기 토글 상태를 초기화한다.", () => {
+    cy.get(".money").type(1000);
+    cy.get("#button").click();
+    cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제");
+  });
 });
 
 // ----------------------------------------------------------------------------------------
