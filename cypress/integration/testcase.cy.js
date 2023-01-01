@@ -62,7 +62,7 @@ describe("Lotto app", () => {
 
   it("로또 금액 입력 후 엔터 키 입력 시 번호보기 토글 상태를 초기화한다.", () => {
     cy.get(".lotto-purchase-input").type("10000{enter}");
-    cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제");
+    cy.get("lotto-numbers-toggle-btn").should("not.be.checked");
   });
 
   // click event
@@ -96,7 +96,7 @@ describe("Lotto app", () => {
   it("로또 금액 입력 후 확인버튼 클릭 시 번호보기 토글 상태를 초기화한다.", () => {
     cy.get(".lotto-purchase-input").type(1000);
     cy.get(".lotto-purchase-btn").click();
-    cy.get("lotto-numbers-toggle-btn").should("토글 상태 해제");
+    cy.get("lotto-numbers-toggle-btn").should("not.be.checked");
   });
 });
 
