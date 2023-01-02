@@ -6,13 +6,18 @@ const $modalClose = $("modal-close");
 const $modal = $(".modal");
 const $lottoNumbersToggleButton = $(".lotto-numbers-toggle-button");
 
-const onModalShow = () => {
-  $modal.classList.add("open");
+// 로또 구입 금액을 입력하면, 금액에 해당하는 로또를 발급해야 한다.
+const lottoPurchase = () => {
+  const $lottoPurchaseInput = $(".lotto-purchase-input");
 };
 
-const onModalClose = () => {
-  $modal.classList.remove("open");
-};
+// const onModalShow = () => {
+//   $modal.classList.add("open");
+// };
 
-$showResultButton.addEventListener("click", onModalShow);
-$modalClose.addEventListener("click", onModalClose);
+// const onModalClose = () => {
+//   $modal.classList.remove("open");
+// };
+
+// $showResultButton.addEventListener("click", onModalShow);
+// $modalClose.addEventListener("click", onModalClose);
