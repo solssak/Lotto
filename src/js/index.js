@@ -5,12 +5,20 @@ const $showResultButton = $(".open-result-modal-button");
 const $modalClose = $("modal-close");
 const $modal = $(".modal");
 const $lottoNumbersToggleButton = $(".lotto-numbers-toggle-button");
+const $purchaseBtn = $(".lotto-purchase-btn");
 
-//로또 구입 금액을 입력하면, 금액에 해당하는 로또를 발급해야 한다.
-const lottoPurchase = () => {
-  const $lottoPurchaseInput = $(".lotto-purchase-input");
-  const $lottoPurchaseBtn = $(".lotto-numbers-toggle-btn");
+const $purchaseLottoInput = $(".lotto-purchase-input");
+const $purchaseLottoBtn = $(".lotto-numbers-toggle-btn");
+
+const purchaseLotto = () => {
+  console.log("확인");
+  // 구입 금액 입력
+  // 유효성
+  // 티켓 생성
+  // 티켓 생성 함수
 };
+
+$purchaseBtn.addEventListener("click", purchaseLotto);
 
 // const onModalShow = () => {
 //   $modal.classList.add("open");
