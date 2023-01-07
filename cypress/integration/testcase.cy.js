@@ -1,5 +1,3 @@
-const ALERT_UNIT_MESSAGE = "구입 금액은 1000원 단위여야합니다.";
-
 describe("Lotto app", () => {
   beforeEach(() => {
     cy.visit("http://127.0.0.1:5501/index.html");
@@ -9,13 +7,13 @@ describe("Lotto app", () => {
   it("input 창에 문자열 입력 시 값이 입력되지 않는다.", () => {
     const newString = "1000원";
     cy.get(".lotto-purchase-input").type(`${newString}{enter}`);
-    cy.get(".lotto-purchase-input").should("have.value", "1000");
+    cy.get(".lotto-purchase-input").should("have.text", "1000");
   });
 
   it("input 창에 특수문자 입력 시 값이 입력되지 않는다.", () => {
     const newPercentSign = "1000%";
     cy.get(".lotto-purchase-input").type(`${newPercentSign}{enter}`);
-    cy.get(".lotto-purchase-input").should("have.value", "1000");
+    cy.get(".lotto-purchase-input").should("have.text", "1000");
   });
 
   it("엔터 키 입력 시 input 값이 없는 경우 alert 경고를 띄운다", () => {
@@ -40,7 +38,9 @@ describe("Lotto app", () => {
     cy.get(".lotto-purchase-input")
       .type(`${newValue}{enter}`)
       .then(() => {
-        expect(alertStub).to.be.calledWith(ALERT_UNIT_MESSAGE);
+        expect(alertStub).to.be.calledWith(
+          "구입 금액은 1000원 단위여야합니다."
+        );
       });
   });
 
@@ -59,7 +59,7 @@ describe("Lotto app", () => {
 
   it("로또 금액 입력 후 엔터 키 입력 시 번호보기 토글 상태를 초기화한다.", () => {
     cy.get(".lotto-purchase-input").type(`10000{enter}`);
-    cy.get("lotto-numbers-toggle-btn").should("not.to.be.checked");
+    cy.get("lotto-numbers-toggle-btn").should("not.be.checked");
   });
 
   // click event
@@ -71,7 +71,9 @@ describe("Lotto app", () => {
     cy.get(".lotto-purchase-btn")
       .click()
       .then(() => {
-        expect(alertStub).to.be.calledWith(ALERT_UNIT_MESSAGE);
+        expect(alertStub).to.be.calledWith(
+          '"구입 금액은 1000원 단위여야합니다."'
+        );
       });
   });
 
@@ -93,7 +95,7 @@ describe("Lotto app", () => {
   it("로또 금액 입력 후 확인버튼 클릭 시 번호보기 토글 상태를 초기화한다.", () => {
     cy.get(".lotto-purchase-input").type(1000);
     cy.get(".lotto-purchase-btn").click();
-    cy.get("lotto-numbers-toggle-btn").should("not.to.be.checked");
+    cy.get("lotto-numbers-toggle-btn").should("not.be.checked");
   });
 });
 

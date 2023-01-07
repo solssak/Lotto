@@ -1,7 +1,4 @@
-import { ALERT_UNIT_MESSAGE } from "./variables.js";
-
 // 유틸 함수
-
 const $ = (selector) => document.querySelector(selector);
 
 const $showResultButton = $(".open-result-modal-button");
@@ -12,38 +9,16 @@ const $purchaseBtn = $(".lotto-purchase-btn");
 
 const $purchaseLottoInput = $(".lotto-purchase-input");
 const $purchaseLottoBtn = $(".lotto-numbers-toggle-btn");
-const $lottoSubmitForm = $(".lotto-submit-form");
 
-const handlePurchaseLottoBtn = (e) => {
-  // 구입 금액 입력
-  e.preventDefault();
+const purchaseLotto = () => {
   console.log("확인");
+  // 구입 금액 입력
   // 유효성
-  if ($purchaseLottoInput.value == "") {
-    alert("빈값을 입력하셨습니다.");
-    return;
-  }
-
-  if ($purchaseLottoInput.value % 1000 == 0) {
-    // create lotto ticket
-    console.log("create lottos");
-  } else {
-    alert(ALERT_UNIT_MESSAGE);
-  }
   // 티켓 생성
   // 티켓 생성 함수
 };
 
-const handlePurchaseLottoForm = (e) => {
-  // 구입 금액 입력
-  console.log("확인");
-  e.preventDefault();
-  // 유효성
-  // if ()
-};
-
-$purchaseBtn.addEventListener("click", handlePurchaseLottoBtn);
-$lottoSubmitForm.addEventListener("submit", handlePurchaseLottoForm);
+$purchaseBtn.addEventListener("click", purchaseLotto);
 
 // const onModalShow = () => {
 //   $modal.classList.add("open");
