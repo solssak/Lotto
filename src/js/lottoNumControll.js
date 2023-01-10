@@ -7,8 +7,3 @@ while (lottoNums.length < 6) {
   }
 }
 console.log(lottoNums);
-
-// for vs while 차이점, 선택 이유 정리하기
-// for (let i = 0; i < 6; i++) {
-//   lottoNums.push(parseInt(Math.floor(Math.random() * 45) + 1));
-// }
