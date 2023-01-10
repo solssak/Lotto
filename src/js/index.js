@@ -24,6 +24,10 @@ const handlePurchaseLottoForm = (e) => {
     alert("빈값을 입력하셨습니다.");
   }
 
+  if ($purchaseLottoInput.value < 1000) {
+    alert("최소 구입 금액은 1000원입니다.");
+  }
+
   if ($purchaseLottoInput.value % 1000 == 0) {
     // 로또 티켓 생성
     console.log("create lottos");
@@ -44,6 +48,10 @@ const handlePurchaseLottoBtn = (e) => {
   // 유효성
   if ($purchaseLottoInput.value == "") {
     alert("빈값을 입력하셨습니다.");
+  }
+
+  if ($purchaseLottoInput.value < 1000) {
+    alert("최소 구입 금액은 1000원입니다.");
   }
 
   if ($purchaseLottoInput.value % 1000 == 0) {
