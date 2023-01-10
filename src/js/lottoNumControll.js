@@ -1,4 +1,3 @@
-// 로또 번호 1~45
 export const lottoNums = [];
 while (lottoNums.length < 6) {
   let lottoTicketNum = parseInt(Math.floor(Math.random() * 45) + 1);
