@@ -37,6 +37,13 @@
   - [x] 로또 번호는 1~45
   - [x] 중복 X
   - [ ] 발급 개수에 맞게 티켓을 보여준다.
+    - new LottoTicket()
+    - 로또객체는 class로 정의
+    - constructor에 초기화 init 정보들을 세팅
+    - LottoTicket 객체 내부함수 정의
+      (ex-createRandomNumber)
+    - 생성한 복수개의 Lottotickets 배열은 전역변수로 관리 (상태관리를 위함)
+    - 로또는 템플릿 리터럴로 view에 나타낸다
 - [ ] 토글 버튼 클릭 시 레이아웃이 바뀌고 발급된 번호가 보인다.
   - [ ] css 수정 (js에서 조작 가능하도록, display:none)
 
