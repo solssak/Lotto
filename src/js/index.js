@@ -14,6 +14,14 @@ const $purchaseLottoInput = $(".lotto-purchase-input");
 const $purchaseLottoBtn = $(".lotto-numbers-toggle-btn");
 const $lottoSubmitForm = $(".lotto-submit-form");
 
+const updateLottoTickets = () => {
+  let lottoCount = $purchaseLottoInput.value / 1000;
+
+  $(
+    "#ticket-issueance-label"
+  ).textContent = `총 ${lottoCount}개를 구매하였습니다.`;
+};
+
 const handlePurchaseLottoForm = (e) => {
   // 구입 금액 입력
   e.preventDefault();
@@ -29,9 +37,11 @@ const handlePurchaseLottoForm = (e) => {
   }
 
   if ($purchaseLottoInput.value % 1000 == 0) {
+    console.log(lottoNums);
     // 로또 티켓 생성
-    console.log("create lottos");
+    updateLottoTickets();
     // 입력 금액을 단위 금액으로 나누고
+
     // 그 수에 맞게 로또를 발급한다.
   } else {
     alert(ALERT_UNIT_MESSAGE);
