@@ -1,5 +1,6 @@
 import { ALERT_UNIT_MESSAGE } from "./variables.js";
 import { lottoNums } from "./lottoNumControll.js";
+import { LottoTicket } from "./ticketIssueance.js";
 
 // 유틸 함수
 const $ = (selector) => document.querySelector(selector);
@@ -14,8 +15,15 @@ const $purchaseLottoInput = $(".lotto-purchase-input");
 const $purchaseLottoBtn = $(".lotto-numbers-toggle-btn");
 const $lottoSubmitForm = $(".lotto-submit-form");
 
+let lottoTickets = new LottoTicket();
+lottoTickets = [];
+
 const updateLottoTickets = () => {
   let lottoCount = $purchaseLottoInput.value / 1000;
+
+  for (let i = 0; i < lottoCount; i++) {
+    lottoTickets.push(new LottoTicket());
+  }
 
   $(
     "#ticket-issueance-label"
@@ -23,11 +31,7 @@ const updateLottoTickets = () => {
 };
 
 const handlePurchaseLottoForm = (e) => {
-  // 구입 금액 입력
   e.preventDefault();
-  console.log("확인");
-
-  // 유효성
   if ($purchaseLottoInput.value == "") {
     alert("빈값을 입력하셨습니다.");
   }
@@ -37,25 +41,18 @@ const handlePurchaseLottoForm = (e) => {
   }
 
   if ($purchaseLottoInput.value % 1000 == 0) {
-    console.log(lottoNums);
-    // 로또 티켓 생성
     updateLottoTickets();
-    // 입력 금액을 단위 금액으로 나누고
 
-    // 그 수에 맞게 로또를 발급한다.
+    $("#issuance-lotto-tickets").innerHTML = lottoTickets
+      .map((ticket) => lottoTicketTemplate(ticket))
+      .join("");
   } else {
     alert(ALERT_UNIT_MESSAGE);
   }
-  //
-  // 티켓 생성 함수
 };
 
 const handlePurchaseLottoBtn = (e) => {
-  // 구입 금액 입력
   e.preventDefault();
-  console.log("확인");
-
-  // 유효성
   if ($purchaseLottoInput.value == "") {
     alert("빈값을 입력하셨습니다.");
   }
@@ -65,15 +62,20 @@ const handlePurchaseLottoBtn = (e) => {
   }
 
   if ($purchaseLottoInput.value % 1000 == 0) {
-    // 로또 티켓 생성
-    console.log("create lottos");
-    // 입력 금액을 단위 금액으로 나누고
-    // 그 수에 맞게 로또를 발급한다.
+    updateLottoTickets();
+
+    $("#issuance-lotto-tickets").innerHTML = lottoTickets
+      .map((ticket) => lottoTicketTemplate(ticket))
+      .join("");
   } else {
     alert(ALERT_UNIT_MESSAGE);
   }
-  //
-  // 티켓 생성 함수
+};
+
+const lottoTicketTemplate = (ticket) => {
+  return `<li>
+  <span class="mx-1 text-4xl">🎟️ ${ticket.lottoNums} </span>
+</li>`;
 };
 
 $lottoSubmitForm.addEventListener("submit", handlePurchaseLottoForm);
