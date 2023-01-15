@@ -4,6 +4,7 @@ import { LottoTicket } from "./ticketIssueance.js";
 
 // 유틸 함수
 const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => document.querySelectorAll(selector);
 
 const $showResultButton = $(".open-result-modal-button");
 const $modalClose = $("modal-close");
@@ -12,13 +13,18 @@ const $lottoNumbersToggleButton = $(".lotto-numbers-toggle-button");
 const $purchaseBtn = $(".lotto-purchase-btn");
 
 const $purchaseLottoInput = $(".lotto-purchase-input");
-const $purchaseLottoBtn = $(".lotto-numbers-toggle-btn");
+
 const $lottoSubmitForm = $(".lotto-submit-form");
 
 let lottoTickets = new LottoTicket();
 lottoTickets = [];
 
 const updateLottoTickets = () => {
+  // lottoTickets 초기화
+  if (lottoTickets.length > 0) {
+    lottoTickets = [];
+  }
+
   let lottoCount = $purchaseLottoInput.value / 1000;
 
   for (let i = 0; i < lottoCount; i++) {
@@ -46,6 +52,8 @@ const handlePurchaseLottoForm = (e) => {
     $("#issuance-lotto-tickets").innerHTML = lottoTickets
       .map((ticket) => lottoTicketTemplate(ticket))
       .join("");
+
+    console.log(lottoNums);
   } else {
     alert(ALERT_UNIT_MESSAGE);
   }
@@ -73,14 +81,24 @@ const handlePurchaseLottoBtn = (e) => {
 };
 
 const lottoTicketTemplate = (ticket) => {
-  return `<li>
-  <span class="mx-1 text-4xl">🎟️ ${ticket.lottoNums} </span>
+  return `<li class="mx-1 text-4xl">
+  <span id="lotto-icon">🎟️</span>
+  <span id="lotto-detail" style="display:none">${ticket.lottoNums}</span>
 </li>`;
+};
+
+const handleLottoToggleBtn = (e) => {
+  $("#issuance-lotto-tickets").classList.toggle("flex-col");
+  [...$$("#lotto-detail")].forEach((item) =>
+    item.style.display == "none"
+      ? (item.style.display = "inline")
+      : (item.style.display = "none")
+  );
 };
 
 $lottoSubmitForm.addEventListener("submit", handlePurchaseLottoForm);
 $purchaseBtn.addEventListener("click", handlePurchaseLottoBtn);
-
+$lottoNumbersToggleButton.addEventListener("click", handleLottoToggleBtn);
 // const onModalShow = () => {
 //   $modal.classList.add("open");
 // };
