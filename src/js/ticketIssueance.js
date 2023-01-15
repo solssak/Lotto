@@ -16,6 +16,7 @@
 export class LottoTicket {
   constructor() {
     this.lottoNums = [];
+    this.assignAutoNums();
   }
 
   setLottoNums(lottoNums) {
@@ -24,5 +25,14 @@ export class LottoTicket {
 
   getLottoNums() {
     return this.lottoNums;
+  }
+
+  assignAutoNums() {
+    while (this.lottoNums.length < 6) {
+      let lottoTicketNum = parseInt(Math.floor(Math.random() * 45) + 1);
+      if (this.lottoNums.indexOf(lottoTicketNum) < 0) {
+        this.lottoNums.push(lottoTicketNum);
+      }
+    }
   }
 }
