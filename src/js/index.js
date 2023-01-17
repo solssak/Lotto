@@ -1,20 +1,20 @@
 import { ALERT_UNIT_MESSAGE } from "./variables.js";
-import { lottoNums } from "./lottoNumControll.js";
 import { LottoTicket } from "./ticketIssueance.js";
 
 // 유틸 함수
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
-const $showResultButton = $(".open-result-modal-button");
-const $modalClose = $("modal-close");
-const $modal = $(".modal");
+// const $showResultButton = $(".open-result-modal-button");
+// const $modalClose = $("modal-close");
+// const $modal = $(".modal");
+
 const $lottoNumbersToggleButton = $(".lotto-numbers-toggle-button");
 const $purchaseBtn = $(".lotto-purchase-btn");
-
 const $purchaseLottoInput = $(".lotto-purchase-input");
-
 const $lottoSubmitForm = $(".lotto-submit-form");
+const $passInputValue = $(".pass-input-value");
+const $switch = $(".switch");
 
 let lottoTickets = new LottoTicket();
 lottoTickets = [];
@@ -53,7 +53,8 @@ const handlePurchaseLottoForm = (e) => {
       .map((ticket) => lottoTicketTemplate(ticket))
       .join("");
 
-    console.log(lottoNums);
+    $passInputValue.style.display = "block";
+    $switch.style.display = "block";
   } else {
     alert(ALERT_UNIT_MESSAGE);
   }
@@ -75,6 +76,9 @@ const handlePurchaseLottoBtn = (e) => {
     $("#issuance-lotto-tickets").innerHTML = lottoTickets
       .map((ticket) => lottoTicketTemplate(ticket))
       .join("");
+
+    $passInputValue.style.display = "block";
+    $switch.style.display = "block";
   } else {
     alert(ALERT_UNIT_MESSAGE);
   }
@@ -99,6 +103,7 @@ const handleLottoToggleBtn = (e) => {
 $lottoSubmitForm.addEventListener("submit", handlePurchaseLottoForm);
 $purchaseBtn.addEventListener("click", handlePurchaseLottoBtn);
 $lottoNumbersToggleButton.addEventListener("click", handleLottoToggleBtn);
+
 // const onModalShow = () => {
 //   $modal.classList.add("open");
 // };
