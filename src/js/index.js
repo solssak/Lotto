@@ -5,16 +5,17 @@ import { LottoTicket } from "./ticketIssueance.js";
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
-// const $showResultButton = $(".open-result-modal-button");
-// const $modalClose = $("modal-close");
-// const $modal = $(".modal");
+const $modal = $(".modal");
+const $showResultButton = $(".open-result-modal-button");
+const $modalClose = $("modal-close");
 
 const $lottoNumbersToggleButton = $(".lotto-numbers-toggle-button");
 const $purchaseBtn = $(".lotto-purchase-btn");
 const $purchaseLottoInput = $(".lotto-purchase-input");
 const $lottoSubmitForm = $(".lotto-submit-form");
 const $passInputValue = $(".pass-input-value");
-const $switch = $(".switch");
+const $switch = $(".switch1");
+const $winningNumber = $(".winning-number2");
 
 let lottoTickets = new LottoTicket();
 lottoTickets = [];
@@ -34,6 +35,7 @@ const updateLottoTickets = () => {
   $(
     "#ticket-issueance-label"
   ).textContent = `총 ${lottoCount}개를 구매하였습니다.`;
+  console.log($winningNumber.nextElementSibling);
 };
 
 const handlePurchaseLottoForm = (e) => {
@@ -100,17 +102,27 @@ const handleLottoToggleBtn = (e) => {
   );
 };
 
+const onModalShow = () => {
+  $modal.classList.add("open");
+};
+
+const onModalClose = () => {
+  $modal.classList.remove("open");
+};
+
+const handleWinningNumber = (e) => {
+  if (e.target.value.length == 2) {
+    if (e.target.nextElementSibling == null) {
+      $(".bonus-number").focus();
+    } else {
+      e.target.nextElementSibling.focus();
+    }
+  }
+};
+
 $lottoSubmitForm.addEventListener("submit", handlePurchaseLottoForm);
 $purchaseBtn.addEventListener("click", handlePurchaseLottoBtn);
 $lottoNumbersToggleButton.addEventListener("click", handleLottoToggleBtn);
-
-// const onModalShow = () => {
-//   $modal.classList.add("open");
-// };
-
-// const onModalClose = () => {
-//   $modal.classList.remove("open");
-// };
-
-// $showResultButton.addEventListener("click", onModalShow);
+$showResultButton.addEventListener("click", onModalShow);
 // $modalClose.addEventListener("click", onModalClose);
+$winningNumber.addEventListener("input", handleWinningNumber);
