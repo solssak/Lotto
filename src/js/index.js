@@ -7,15 +7,15 @@ const $$ = (selector) => document.querySelectorAll(selector);
 
 const $modal = $(".modal");
 const $showResultButton = $(".open-result-modal-button");
-const $modalClose = $("modal-close");
+// const $modalClose = $("modal-close");
 
 const $lottoNumbersToggleButton = $(".lotto-numbers-toggle-button");
 const $purchaseBtn = $(".lotto-purchase-btn");
 const $purchaseLottoInput = $(".lotto-purchase-input");
 const $lottoSubmitForm = $(".lotto-submit-form");
-const $passInputValue = $(".pass-input-value");
+const $passInputForm = $(".pass-input-form");
 const $switch = $(".switch1");
-const $winningNumber = $(".winning-number2");
+const $winningNumber2 = $(".winning-number2");
 
 let lottoTickets = new LottoTicket();
 lottoTickets = [];
@@ -35,7 +35,6 @@ const updateLottoTickets = () => {
   $(
     "#ticket-issueance-label"
   ).textContent = `총 ${lottoCount}개를 구매하였습니다.`;
-  console.log($winningNumber.nextElementSibling);
 };
 
 const handlePurchaseLottoForm = (e) => {
@@ -55,7 +54,7 @@ const handlePurchaseLottoForm = (e) => {
       .map((ticket) => lottoTicketTemplate(ticket))
       .join("");
 
-    $passInputValue.style.display = "block";
+    $passInputForm.style.display = "block";
     $switch.style.display = "block";
   } else {
     alert(ALERT_UNIT_MESSAGE);
@@ -79,7 +78,7 @@ const handlePurchaseLottoBtn = (e) => {
       .map((ticket) => lottoTicketTemplate(ticket))
       .join("");
 
-    $passInputValue.style.display = "block";
+    $passInputForm.style.display = "block";
     $switch.style.display = "block";
   } else {
     alert(ALERT_UNIT_MESSAGE);
@@ -102,15 +101,30 @@ const handleLottoToggleBtn = (e) => {
   );
 };
 
-const onModalShow = () => {
-  $modal.classList.add("open");
+const onModalShow = (e) => {
+  e.preventDefault();
+  const winningNumbers = [...$$(".winning-number")].map((node) => {
+    return +node.value;
+  });
+  const bonusNumber = +$(".bonus-number").value;
+  const winningInputNumbers = [...winningNumbers, bonusNumber];
+
+  const isValidWinningNumbers = (winningInputNumbers) => {
+    return new Set(winningInputNumbers).size == 7 ? true : false;
+  };
+
+  if (!isValidWinningNumbers(winningInputNumbers)) {
+    alert("중복");
+  } else {
+    $modal.classList.add("open");
+  }
 };
 
-const onModalClose = () => {
-  $modal.classList.remove("open");
-};
+// const onModalClose = () => {
+//   $modal.classList.remove("open");
+// };
 
-const handleWinningNumber = (e) => {
+const handleWinningNumber2 = (e) => {
   if (e.target.value.length == 2) {
     if (e.target.nextElementSibling == null) {
       $(".bonus-number").focus();
@@ -125,4 +139,4 @@ $purchaseBtn.addEventListener("click", handlePurchaseLottoBtn);
 $lottoNumbersToggleButton.addEventListener("click", handleLottoToggleBtn);
 $showResultButton.addEventListener("click", onModalShow);
 // $modalClose.addEventListener("click", onModalClose);
-$winningNumber.addEventListener("input", handleWinningNumber);
+$winningNumber2.addEventListener("input", handleWinningNumber2);
