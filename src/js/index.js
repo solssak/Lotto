@@ -103,6 +103,7 @@ const handleLottoToggleBtn = (e) => {
 
 const onModalShow = (e) => {
   e.preventDefault();
+
   const winningNumbers = [...$$(".winning-number")].map((node) => {
     return +node.value;
   });
@@ -114,7 +115,7 @@ const onModalShow = (e) => {
   };
 
   if (!isValidWinningNumbers(winningInputNumbers)) {
-    alert("중복");
+    alert("당첨번호가 중복됐거나 빈값입니다.");
   } else {
     $modal.classList.add("open");
   }
