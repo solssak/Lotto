@@ -13,9 +13,9 @@ const $lottoNumbersToggleButton = $(".lotto-numbers-toggle-button");
 const $purchaseBtn = $(".lotto-purchase-btn");
 const $purchaseLottoInput = $(".lotto-purchase-input");
 const $lottoSubmitForm = $(".lotto-submit-form");
-const $passInputForm = $(".pass-input-form");
+const $winningNumberForm = $(".winning-number-form");
 const $switch = $(".switch1");
-const $winningNumber2 = $(".winning-number2");
+const $winningNumbersDiv = $(".winning-numbers-div");
 
 let lottoTickets = new LottoTicket();
 lottoTickets = [];
@@ -54,7 +54,7 @@ const handlePurchaseLottoForm = (e) => {
       .map((ticket) => lottoTicketTemplate(ticket))
       .join("");
 
-    $passInputForm.style.display = "block";
+    $winningNumberForm.style.display = "block";
     $switch.style.display = "block";
   } else {
     alert(ALERT_UNIT_MESSAGE);
@@ -78,7 +78,7 @@ const handlePurchaseLottoBtn = (e) => {
       .map((ticket) => lottoTicketTemplate(ticket))
       .join("");
 
-    $passInputForm.style.display = "block";
+    $winningNumberForm.style.display = "block";
     $switch.style.display = "block";
   } else {
     alert(ALERT_UNIT_MESSAGE);
@@ -101,7 +101,7 @@ const handleLottoToggleBtn = (e) => {
   );
 };
 
-const onModalShow = (e) => {
+const handleWinningNumberForm = (e) => {
   e.preventDefault();
 
   const winningNumbers = [...$$(".winning-number")].map((node) => {
@@ -117,15 +117,19 @@ const onModalShow = (e) => {
   if (!isValidWinningNumbers(winningInputNumbers)) {
     alert("당첨번호가 중복됐거나 빈값입니다.");
   } else {
-    $modal.classList.add("open");
+    onModalShow();
   }
+};
+
+const onModalShow = (e) => {
+  $modal.classList.add("open");
 };
 
 // const onModalClose = () => {
 //   $modal.classList.remove("open");
 // };
 
-const handleWinningNumber2 = (e) => {
+const handleWinningNumbersDiv = (e) => {
   if (e.target.value.length == 2) {
     if (e.target.nextElementSibling == null) {
       $(".bonus-number").focus();
@@ -138,6 +142,7 @@ const handleWinningNumber2 = (e) => {
 $lottoSubmitForm.addEventListener("submit", handlePurchaseLottoForm);
 $purchaseBtn.addEventListener("click", handlePurchaseLottoBtn);
 $lottoNumbersToggleButton.addEventListener("click", handleLottoToggleBtn);
-$showResultButton.addEventListener("click", onModalShow);
+$winningNumberForm.addEventListener("submit", handleWinningNumberForm);
+$showResultButton.addEventListener("submit", onModalShow);
 // $modalClose.addEventListener("click", onModalClose);
-$winningNumber2.addEventListener("input", handleWinningNumber2);
+$winningNumbersDiv.addEventListener("input", handleWinningNumbersDiv);
